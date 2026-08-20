@@ -1,44 +1,403 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Site de notícias Barão</title>
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Bootstrap Icons (Adicionado para os ícones funcionarem) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+      /* ===== ANIMAÇÃO LEGAL PARA O MENU ===== */
+      .nav-link-animated {
+        position: relative;
+        color: #e0e0e0 !important;
+        font-weight: 600;
+        padding: 8px 16px !important;
+        border-radius: 8px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+      }
+
+      /* Efeito de brilho deslizante ao passar o mouse */
+      .nav-link-animated::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(32, 201, 151, 0.2), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .nav-link-animated:hover::before {
+        left: 100%;
+      }
+
+      /* Sublinhado verde neon que cresce a partir do centro */
+      .nav-link-animated::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: #20c997;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+        box-shadow: 0 0 8px #20c997, 0 0 15px #198754;
+      }
+
+      .nav-link-animated:hover,
+      .nav-link-animated.active {
+        color: #20c997 !important;
+        background-color: rgba(25, 135, 84, 0.15);
+        text-shadow: 0 0 8px rgba(32, 201, 151, 0.4);
+      }
+
+      .nav-link-animated:hover::after,
+      .nav-link-animated.active::after {
+        width: 60%;
+      }
+
+      /* Estado Ativo (Página atual) */
+      .nav-link-animated.active {
+        color: #ffffff !important;
+        background-color: #198754;
+        box-shadow: 0 4px 15px rgba(25, 135, 84, 0.4);
+        text-shadow: none;
+      }
+      
+      .nav-link-animated.active::after {
+        display: none; /* Esconde o sublinhado quando já tem fundo sólido */
+      }
+
+      /* Ajuste fino para o botão de busca e participação */
+      .btn-success {
+        box-shadow: 0 4px 10px rgba(25, 135, 84, 0.3);
+        transition: all 0.3s ease;
+      }
+      .btn-success:hover {
+        box-shadow: 0 6px 15px rgba(25, 135, 84, 0.5);
+        transform: translateY(-1px);
+      }
+    </style>
   </head>
   <body>
-   
+    
     <!-- ===== NAVBAR ===== -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top shadow">
-    <div class="container-xxl">
-      <a class="navbar-brand fw-bold fs-3 d-flex align-items-center gap-2" href="#">
-        <img src="./img/logo-barao.png" alt="Logo Barão News" width="42" height="42" class="rounded-circle">
-        Barão<span class="text-success">News</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active fw-semibold" href="#">Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Escola</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Ciências</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Esportes</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Cultura</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Avisos</a></li>
-        </ul>
-        <form class="d-flex me-lg-3 my-2 my-lg-0" role="search">
-          <div class="input-group input-group-sm">
-            <input class="form-control rounded-start-pill border-0 ps-3" type="search" placeholder="Buscar no site...">
-            <button class="btn btn-success rounded-end-pill px-3" type="submit"><i class="bi bi-search"></i></button>
-          </div>
-        </form>
-        <a href="#" class="btn btn-success rounded-pill fw-semibold px-4 text-white">Participe</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top shadow">
+      <div class="container-xxl">
+        <a class="navbar-brand fw-bold fs-3 d-flex align-items-center gap-2" href="#">
+          <img src="./img/logo-barao.png" alt="Logo Barão News" width="42" height="42" class="rounded-circle">
+          Barão<span class="text-success">News</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link nav-link-animated active" href="#">Início</a></li>
+           <li class="nav-item"><a class="nav-link nav-link-animated" href="#">Notícias</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-animated" href="./noticias.html"></a></li>
+            <li class="nav-item"><a class="nav-link nav-link-animated" href="#">Recados</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-animated" href="#">Horários</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-animated" href="#">Eventos</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-animated" href="#">Frequência Turmas</a></li>
+          </ul>
+          <form class="d-flex me-lg-3 my-2 my-lg-0" role="search">
+            <div class="input-group input-group-sm">
+              <input class="form-control rounded-start-pill border-0 ps-3" type="search" placeholder="Buscar no site...">
+              <button class="btn btn-success rounded-end-pill px-3" type="submit"><i class="bi bi-search"></i></button>
+            </div>
+          </form>
+          <a href="#" class="btn btn-success rounded-pill fw-semibold px-4 text-white">Participe</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== TICKER MURAL ===== -->
+    <div class="bg-success text-white py-2">
+      <div class="container-xxl d-flex align-items-center gap-3">
+        <span class="fw-bold text-uppercase small text-nowrap"><i class="bi bi-megaphone-fill"></i> Última hora</span>
+        <span class="small text-truncate">Matrículas abertas para as oficinas do contraturno • Time de vôlei é campeão regional • Feira de Ciências será dia 25</span>
       </div>
     </div>
-  </nav>    
 
+    <main class="container-xxl py-4 py-lg-5">
+      <div class="row g-4">
 
+        <!-- ===== COLUNA PRINCIPAL ===== -->
+        <div class="col-lg-8">
+
+          <!-- HERO -->
+          <div class="row g-4 mb-4 mb-lg-5">
+            <div class="col-12">
+              <div id="heroCarousel" class="carousel slide carousel-fade rounded-4 overflow-hidden shadow" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="https://picsum.photos/1200/560?random=11" class="d-block w-100" alt="">
+                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-50"></div>
+                    <div class="carousel-caption text-start start-0 end-0 bottom-0 p-4 p-md-5 d-flex flex-column align-items-start justify-content-center">
+                      <span class="badge text-bg-success text-uppercase mb-3 px-3 py-2">Ciências</span>
+                      <h2 class="display-5 fw-bold">Feira de Ciências 2026 bate recorde de projetos inscritos</h2>
+                      <p class="d-none d-md-block fs-5 text-white-50">Mais de 80 trabalhos, do 6º ano ao Ensino Médio, serão apresentados no ginásio.</p>
+                      <small class="d-flex align-items-center gap-2 text-white-50">
+                        <i class="bi bi-person-fill"></i> Marina Costa <span>•</span> <i class="bi bi-clock"></i> 8 min de leitura
+                      </small>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://picsum.photos/1200/560?random=12" class="d-block w-100" alt="">
+                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-50"></div>
+                    <div class="carousel-caption text-start start-0 end-0 bottom-0 p-4 p-md-5 d-flex flex-column align-items-start justify-content-center">
+                      <span class="badge bg-white text-dark text-uppercase mb-3 px-3 py-2">Esportes</span>
+                      <h2 class="display-5 fw-bold">Time de vôlei conquista o campeonato interescolar invicto</h2>
+                      <p class="d-none d-md-block fs-5 text-white-50">Vitória por 3 a 0 na final garante a taça e a vaga na etapa estadual.</p>
+                      <small class="d-flex align-items-center gap-2 text-white-50">
+                        <i class="bi bi-person-fill"></i> Rafael Souza <span>•</span> <i class="bi bi-clock"></i> 5 min de leitura
+                      </small>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://picsum.photos/1200/560?random=13" class="d-block w-100" alt="">
+                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-50"></div>
+                    <div class="carousel-caption text-start start-0 end-0 bottom-0 p-4 p-md-5 d-flex flex-column align-items-start justify-content-center">
+                      <span class="badge text-bg-dark border border-white text-uppercase mb-3 px-3 py-2">Cultura</span>
+                      <h2 class="display-5 fw-bold">Mostra de arte transforma o pátio central em galeria a céu aberto</h2>
+                      <p class="d-none d-md-block fs-5 text-white-50">Desenhos, pinturas e esculturas dos alunos ficam expostos até o fim do mês.</p>
+                      <small class="d-flex align-items-center gap-2 text-white-50">
+                        <i class="bi bi-person-fill"></i> Paula Mendes <span>•</span> <i class="bi bi-clock"></i> 4 min de leitura
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon"></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Destaques secundários -->
+            <div class="col-6">
+              <a href="#" class="text-decoration-none">
+                <div class="position-relative rounded-4 overflow-hidden shadow h-100">
+                  <div class="ratio ratio-16x9">
+                    <img src="https://picsum.photos/600/340?random=14" alt="">
+                  </div>
+                  <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-black bg-opacity-75 text-white">
+                    <h6 class="fw-bold mb-1">Grêmio anuncia novas oficinas de música e teatro</h6>
+                    <small class="text-white-50"><i class="bi bi-clock"></i> 6 min</small>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-6">
+              <a href="#" class="text-decoration-none">
+                <div class="position-relative rounded-4 overflow-hidden shadow h-100">
+                  <div class="ratio ratio-16x9">
+                    <img src="https://picsum.photos/600/340?random=15" alt="">
+                  </div>
+                  <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-black bg-opacity-75 text-white">
+                    <h6 class="fw-bold mb-1">Entrevista: a diretora fala das novidades do semestre</h6>
+                    <small class="text-white-50"><i class="bi bi-clock"></i> 10 min</small>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- ===== ÚLTIMAS NOTÍCIAS ===== -->
+          <h2 class="fw-bold border-start border-4 border-success ps-3 mb-4">Últimas Notícias</h2>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4">
+
+            <div class="col">
+              <article class="card border-0 rounded-4 overflow-hidden shadow-sm h-100">
+                <div class="position-relative">
+                  <img src="https://picsum.photos/500/300?random=16" class="card-img-top" alt="">
+                  <span class="position-absolute top-0 start-0 m-3 badge text-bg-success rounded-pill px-3 py-2">Eventos</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title fw-bold">Festa Junina do Barão terá quadrilha, jogos e comidas típicas</h5>
+                  <p class="card-text text-body-secondary small">Programação completa foi divulgada; famílias estão convidadas.</p>
+                  <div class="d-flex align-items-center gap-2 mt-3">
+                    <img src="https://i.pravatar.cc/64?img=12" class="rounded-circle" width="32" height="32" alt="">
+                    <div class="small">
+                      <span class="fw-semibold d-block">Marina Costa</span>
+                      <span class="text-body-secondary"><i class="bi bi-clock"></i> 5 min</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col">
+              <article class="card border-0 rounded-4 overflow-hidden shadow-sm h-100">
+                <div class="position-relative">
+                  <img src="https://picsum.photos/500/300?random=17" class="card-img-top" alt="">
+                  <span class="position-absolute top-0 start-0 m-3 badge text-bg-dark rounded-pill px-3 py-2">Esportes</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title fw-bold">Seletivas para os jogos internos começam na segunda-feira</h5>
+                  <p class="card-text text-body-secondary small">Inscrições pelo portal do aluno até sexta-feira.</p>
+                  <div class="d-flex align-items-center gap-2 mt-3">
+                    <img src="https://i.pravatar.cc/64?img=32" class="rounded-circle" width="32" height="32" alt="">
+                    <div class="small">
+                      <span class="fw-semibold d-block">Rafael Souza</span>
+                      <span class="text-body-secondary"><i class="bi bi-clock"></i> 3 min</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col">
+              <article class="card border-0 rounded-4 overflow-hidden shadow-sm h-100">
+                <div class="position-relative">
+                  <img src="https://picsum.photos/500/300?random=18" class="card-img-top" alt="">
+                  <span class="position-absolute top-0 start-0 m-3 badge bg-white text-dark rounded-pill px-3 py-2 shadow-sm">Tecnologia</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title fw-bold">Laboratório de robótica recebe novos kits para as turmas</h5>
+                  <p class="card-text text-body-secondary small">Aulas práticas começam na próxima semana.</p>
+                  <div class="d-flex align-items-center gap-2 mt-3">
+                    <img src="https://i.pravatar.cc/64?img=15" class="rounded-circle" width="32" height="32" alt="">
+                    <div class="small">
+                      <span class="fw-semibold d-block">Paula Mendes</span>
+                      <span class="text-body-secondary"><i class="bi bi-clock"></i> 7 min</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="col-lg-4">
+
+          <!-- Mais lidas -->
+          <div class="card border-0 rounded-4 shadow-sm mb-4">
+            <div class="card-body p-4">
+              <h5 class="fw-bold border-start border-4 border-success ps-3 mb-4"><i class="bi bi-graph-up-arrow text-success"></i> Mais Lidas</h5>
+
+              <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                <span class="display-6 fw-bold text-success">1</span>
+                <div><a href="#" class="fw-semibold text-decoration-none text-body">Calendário de provas do bimestre já está no portal</a><small class="text-body-secondary d-block">Avisos • 320 leituras</small></div>
+              </div>
+              <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                <span class="display-6 fw-bold text-black">2</span>
+                <div><a href="#" class="fw-semibold text-decoration-none text-body">Cardápio da cantina ganha opções saudáveis</a><small class="text-body-secondary d-block">Cantina • 280 leituras</small></div>
+              </div>
+              <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                <span class="display-6 fw-bold text-success">3</span>
+                <div><a href="#" class="fw-semibold text-decoration-none text-body">Inscrições abertas para o clube de xadrez</a><small class="text-body-secondary d-block">Clubes • 240 leituras</small></div>
+              </div>
+              <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                <span class="display-6 fw-bold text-black">4</span>
+                <div><a href="#" class="fw-semibold text-decoration-none text-body">Biblioteca amplia horário de atendimento</a><small class="text-body-secondary d-block">Biblioteca • 190 leituras</small></div>
+              </div>
+              <div class="d-flex gap-3">
+                <span class="display-6 fw-bold text-success">5</span>
+                <div><a href="#" class="fw-semibold text-decoration-none text-body">Equipe de robótica é classificada para a etapa estadual</a><small class="text-body-secondary d-block">Ciências • 175 leituras</small></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Agenda da semana -->
+          <div class="card border-0 rounded-4 shadow-sm mb-4">
+            <div class="card-body p-4">
+              <h5 class="fw-bold border-start border-4 border-black ps-3 mb-4"><i class="bi bi-calendar-event text-success"></i> Agenda da Semana</h5>
+              <div class="d-flex gap-3 align-items-center mb-3">
+                <span class="badge text-bg-success rounded-3 px-3 py-2 fw-bold">17 AGO</span>
+                <span class="small fw-semibold">Assembleia do grêmio — pátio central, 13h</span>
+              </div>
+              <div class="d-flex gap-3 align-items-center mb-3">
+                <span class="badge text-bg-dark rounded-3 px-3 py-2 fw-bold">19 AGO</span>
+                <span class="small fw-semibold">Seletivas dos jogos internos — quadra</span>
+              </div>
+              <div class="d-flex gap-3 align-items-center mb-3">
+                <span class="badge text-bg-success rounded-3 px-3 py-2 fw-bold">21 AGO</span>
+                <span class="small fw-semibold">Apresentação do coral — auditório, 10h</span>
+              </div>
+              <div class="d-flex gap-3 align-items-center">
+                <span class="badge text-bg-dark rounded-3 px-3 py-2 fw-bold">25 AGO</span>
+                <span class="small fw-semibold">Feira de Ciências — ginásio, 8h às 17h</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="card border-0 rounded-4 shadow-sm bg-black text-white">
+            <div class="card-body p-4 text-center">
+              <i class="bi bi-envelope-paper-heart display-4 text-success"></i>
+              <h5 class="fw-bold mt-3">Receba os avisos da escola</h5>
+              <p class="text-white-50 small">Assine o boletim do Barão News e não perca nada da semana.</p>
+              <form class="input-group mt-3">
+                <input type="email" class="form-control rounded-start-pill" placeholder="Seu e-mail">
+                <button class="btn btn-success rounded-end-pill fw-semibold text-white" type="submit">Assinar</button>
+              </form>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+
+    <footer class="bg-black text-white-50 pt-5 mt-5">
+      <div class="container-xxl">
+        <div class="row g-4 pb-4">
+          <div class="col-lg-4">
+            <h4 class="text-white fw-bold d-flex align-items-center gap-2">
+              <img src="./img/logo-barao.png" alt="Logo Barão News" width="40" height="40" class="rounded-circle">
+              Barão<span class="text-success">News</span>
+            </h4>
+            <p class="small">O jornal escolar feito por alunos, para alunos. Notícias, eventos e avisos da nossa comunidade.</p>
+            <div class="d-flex gap-3 fs-5">
+              <a href="#" class="link-light"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="link-light"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="link-light"><i class="bi bi-twitter-x"></i></a>
+              <a href="#" class="link-light"><i class="bi bi-youtube"></i></a>
+            </div>
+          </div>
+          <div class="col-6 col-lg-2">
+            <h6 class="text-white fw-bold text-uppercase small mb-3">Editorias</h6>
+            <ul class="list-unstyled small d-grid gap-2">
+              <li><a href="#" class="link-light text-decoration-none">Ciências</a></li>
+              <li><a href="#" class="link-light text-decoration-none">Esportes</a></li>
+              <li><a href="#" class="link-light text-decoration-none">Cultura</a></li>
+              <li><a href="#" class="link-light text-decoration-none">Avisos</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2">
+            <h6 class="text-white fw-bold text-uppercase small mb-3">Escola</h6>
+            <ul class="list-unstyled small d-grid gap-2">
+              <li><a href="#" class="link-light text-decoration-none">Secretaria</a></li>
+              <li><a href="#" class="link-light text-decoration-none">Direção</a></li>
+              <li><a href="#" class="link-light text-decoration-none">Biblioteca</a></li>
+              <li><a href="#" class="link-light text-decoration-none">Cantina</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4">
+            <h6 class="text-white fw-bold text-uppercase small mb-3">Clube de Jornalismo</h6>
+            <p class="small">Quer escrever para o Barão News? As reuniões são toda quarta, na sala 12.</p>
+            <a href="#" class="btn btn-success rounded-pill fw-semibold text-white">Quero participar</a>
+          </div>
+        </div>
+        <div class="border-top border-secondary py-3 text-center small">
+          © 2026 Barão News — Jornal escolar • Feito com <i class="bi bi-heart-fill text-success"></i> pelos alunos
+        </div>
+      </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
